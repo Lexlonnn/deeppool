@@ -7,6 +7,7 @@ import Hero from "./sections/hero";
 import Services from "./sections/services";
 import Portfolio from "./sections/portfolio";
 import Process from "./sections/proof";
+import Team from "./sections/team";
 
 export default function Home() {
   const [init, setInit] = useState(false);
@@ -74,6 +75,7 @@ export default function Home() {
         <Services />
         <Portfolio />
         <Process />
+        <Team />
 
       </div>
     </div>

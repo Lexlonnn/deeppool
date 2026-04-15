@@ -165,11 +165,11 @@ export default function Portfolio() {
   const textY = useTransform(smoothProgress, [0, 0.18], [0, -20]);
 
   // Horizontal Scroll
-  const x = useTransform(smoothProgress, [0.22, 0.82], ["15%", "-75%"]);
-  const cardsOpacity = useTransform(smoothProgress, [0.18, 0.25], [0, 1]);
+  const x = useTransform(smoothProgress, [0.2, 0.86], ["15%", "-75%"]);
+  const cardsOpacity = useTransform(smoothProgress, [0.14, 0.26], [0, 1]);
 
   return (
-    <section ref={targetRef} className="relative min-h-[500vh] bg-[#ffffff]">
+    <section ref={targetRef} className="relative min-h-[620vh] bg-[#ffffff]">
       <div className="sticky top-0 h-screen flex items-center overflow-hidden">
         
         {/* Subtle Watermark Background */}
@@ -242,8 +242,8 @@ export default function Portfolio() {
 
 function ProjectCardWrapper({ project, index, progress }: any) {
   // Logic to make cards slightly "pop" when they are in focus
-  const start = 0.22 + (index * 0.12);
-  const end = start + 0.15;
+  const start = 0.2 + (index * 0.13);
+  const end = start + 0.2;
   
   const scale = useTransform(progress, [start, (start + end) / 2, end], [0.9, 1.05, 0.9]);
   const rotate = useTransform(progress, [start, end], [2, -2]);

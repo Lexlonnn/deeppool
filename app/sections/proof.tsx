@@ -47,7 +47,7 @@ export default function Process() {
   const titleScale = useTransform(smoothProgress, [0.15, 0.28], [1, 0.85]);
 
   return (
-    <section ref={containerRef} className="relative h-[450vh] bg-white">
+    <section ref={containerRef} className="relative h-[600vh] bg-white">
       <div 
         className="fixed inset-0 opacity-30 pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: `url('/paper-texture.jpg')`, backgroundSize: "400px" }}
@@ -99,8 +99,8 @@ export default function Process() {
 
 function ProcessStep({ step, index, progress, total }: any) {
   // Define exact scroll windows for each card with smoother ranges
-  const stepStart = 0.25 + (index * 0.22);
-  const stepEnd = stepStart + 0.25;
+  const stepStart = 0.2 + (index * 0.24);
+  const stepEnd = stepStart + 0.3;
   
   // 1. Opacity: Gradual fade in -> Hold -> Gradual fade out
   const opacity = useTransform(

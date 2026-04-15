@@ -7,9 +7,11 @@ import Lenis from "@studio-freight/lenis";
 export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.08,
-      duration: 1.5,
+      lerp: 0.05,
       smoothWheel: true,
+      syncTouch: true,
+      wheelMultiplier: 0.65,
+      touchMultiplier: 0.8,
     });
 
     let frameId = 0;

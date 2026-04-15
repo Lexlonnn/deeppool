@@ -47,7 +47,7 @@ export default function Services() {
   return (
     <section 
       ref={containerRef} 
-      className="relative h-[400vh] bg-[#fcfcfc] overflow-clip"
+      className="relative h-[520vh] bg-[#fcfcfc] overflow-clip"
     >
       {/* Texture Layer */}
       <div className="fixed inset-0 pointer-events-none opacity-40 mix-blend-multiply" 
@@ -98,8 +98,8 @@ function ServiceCard({ service, index, progress }: any) {
   };
 
   // Story Reveal Logic
-  const start = 0.1 + (index * 0.12);
-  const end = start + 0.15;
+  const start = 0.12 + (index * 0.14);
+  const end = start + 0.24;
   const y = useTransform(progress, [start, end], [60, 0]);
   const opacity = useTransform(progress, [start, end], [0, 1]);
 
