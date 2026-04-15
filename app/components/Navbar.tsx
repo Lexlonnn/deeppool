@@ -34,6 +34,32 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [lastScrollY]);
 
+  const navItems = [
+    { name: 'HOME', id: 'home' },
+    { name: 'SERVICES', id: 'services' },
+    { name: 'PORTFOLIO', id: 'portfolio' },
+    { name: 'PROCESS', id: 'method' },
+    { name: 'TEAM', id: 'team' }
+  ];
+
+  const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault();
+    const target = document.getElementById(id);
+    if (target) {
+      const offset = 80; // Offset for navbar height
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = target.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    }
+    setIsOpen(false); // Close mobile menu if open
+  };
+
   return (
     <nav 
       className={`fixed top-0 w-full z-[100] transition-all duration-500 ease-in-out ${
@@ -47,7 +73,7 @@ export default function Navbar() {
       <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
         
         {/* LOGO */}
-        <Link href="/" className="flex items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
+        <Link href="/" onClick={(e) => handleScrollTo(e, 'home')} className="flex items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
           <div className="bg-blue-600 p-1.5 rounded-xl shadow-lg group-hover:rotate-[15deg] transition-transform duration-300">
             <Droplets className="text-white w-6 h-6" />
           </div>
@@ -58,13 +84,14 @@ export default function Navbar() {
 
         {/* DESKTOP NAV */}
         <div className="hidden md:flex items-center gap-10">
-          {['SERVICES', 'ABOUT', 'PORTFOLIO', 'BLOG', 'CONTACT'].map((item) => (
+          {navItems.map((item) => (
             <Link 
-              key={item} 
-              href={`#${item.toLowerCase()}`} 
+              key={item.name} 
+              href={`#${item.id}`} 
+              onClick={(e) => handleScrollTo(e, item.id)}
               className="relative text-[11px] font-black tracking-[0.2em] text-slate-600 hover:text-blue-600 transition-colors group"
             >
-              {item}
+              {item.name}
               <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0" />
             </Link>
           ))}
@@ -72,9 +99,9 @@ export default function Navbar() {
 
         {/* CTA BUTTON */}
         <div className="flex items-center gap-4">
-          <button className="hidden sm:block px-6 py-2.5 bg-blue-600 text-white text-xs font-black tracking-widest rounded-full hover:bg-blue-700 hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95">
+          <Link href="#contact" onClick={(e) => handleScrollTo(e, 'contact')} className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-black tracking-widest rounded-full hover:bg-blue-700 hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95">
             FREE CONSULT
-          </button>
+          </Link>
 
           {/* Mobile Toggle */}
           <button 
@@ -89,11 +116,23 @@ export default function Navbar() {
       {/* MOBILE MENU (Glassy) */}
       <div className={`md:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="flex flex-col p-8 gap-6">
-          {['SERVICES', 'ABOUT', 'PORTFOLIO', 'BLOG', 'CONTACT'].map((item) => (
-            <Link key={item} href={`#${item.toLowerCase()}`} onClick={() => setIsOpen(false)} className="text-sm font-bold tracking-widest text-slate-800">
-              {item}
+          {navItems.map((item) => (
+            <Link 
+              key={item.name} 
+              href={`#${item.id}`} 
+              onClick={(e) => handleScrollTo(e, item.id)} 
+              className="text-sm font-bold tracking-widest text-slate-800"
+            >
+              {item.name}
             </Link>
           ))}
+          <Link 
+            href="#contact" 
+            onClick={(e) => handleScrollTo(e, 'contact')} 
+            className="text-sm font-bold tracking-widest text-blue-600"
+          >
+            CONTACT US
+          </Link>
         </div>
       </div>
     </nav>

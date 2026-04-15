@@ -8,6 +8,7 @@ import Services from "./sections/services";
 import Portfolio from "./sections/portfolio";
 import Process from "./sections/proof";
 import Team from "./sections/team";
+import CTA from "./sections/cta";
 
 export default function Home() {
   const [init, setInit] = useState(false);
@@ -25,32 +26,35 @@ export default function Home() {
     fpsLimit: 120,
     interactivity: {
       events: { 
-        onHover: { enable: true, mode: "grab" }, 
+        onClick: { enable: true, mode: "push" },
+        onHover: { enable: true, mode: ["grab", "bubble"] }, 
         resize: { enable: true } 
       },
       modes: { 
-        grab: { distance: 100, links: { opacity: 0.2 } } 
+        grab: { distance: 250, links: { opacity: 0.15 } },
+        bubble: { distance: 250, size: 3.5, duration: 2, opacity: 0.8 },
+        push: { quantity: 2 }
       },
     },
     particles: {
-      color: { value: ["#1877f2", "#d89e5c", "#64748b"] },
+      color: { value: ["#1877f2", "#94a3b8", "#cbd5e1"] },
       links: { 
-        color: "#ffffff", 
-        distance: 120, 
+        color: "#94a3b8", 
+        distance: 150, 
         enable: true, 
-        opacity: 0.08, 
-        width: 1.5 
+        opacity: 0.1, 
+        width: 1 
       },
       move: { 
         enable: true, 
-        speed: 0.4, 
+        speed: 0.3, 
         direction: "none" as const, 
         outModes: { default: "out" as const } 
       },
-      number: { density: { enable: true, area: 1000 }, value: 60 },
-      opacity: { value: 0.15 },
+      number: { density: { enable: true, area: 1000 }, value: 80 },
+      opacity: { value: 0.3 },
       shape: { type: "circle" },
-      size: { value: { min: 1.5, max: 3 } },
+      size: { value: { min: 1, max: 2.5 } },
     },
     detectRetina: true,
   };
@@ -76,6 +80,7 @@ export default function Home() {
         <Portfolio />
         <Process />
         <Team />
+        <CTA />
 
       </div>
     </div>
