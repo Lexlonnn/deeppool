@@ -20,8 +20,8 @@ export default function CTA() {
         transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
         className="relative w-full h-full min-h-[600px] md:min-h-[700px] rounded-[3rem] md:rounded-[5rem] overflow-hidden shadow-[0_40px_100px_-20px_rgba(0,0,0,0.15)] flex flex-col items-center justify-center bg-slate-950 border border-slate-800"
       >
-        {/* Dynamic Backgrounds */}
-        <div className="absolute inset-0 z-0">
+        {/* Dynamic Backgrounds - Optimized for Performance */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
           {/* Subtle Grid Pattern */}
           <div 
             className="absolute inset-0 opacity-[0.03]"
@@ -30,10 +30,10 @@ export default function CTA() {
               backgroundSize: '40px 40px' 
             }}
           />
-          {/* Ambient Lighting Orbs */}
-          <div className="absolute top-[-25%] left-[-10%] w-[60%] h-[150%] bg-blue-600/30 blur-[140px] rounded-full pointer-events-none mix-blend-screen animate-[pulse_6s_ease-in-out_infinite]" />
-          <div className="absolute bottom-[-25%] right-[-10%] w-[60%] h-[150%] bg-amber-600/20 blur-[140px] rounded-full pointer-events-none mix-blend-screen animate-[pulse_8s_ease-in-out_infinite_reverse]" />
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[40%] h-[40%] bg-indigo-500/10 blur-[100px] rounded-full pointer-events-none" />
+          {/* Ambient Lighting Orbs - using Radial Gradients instead of heavy DOM blur filters */}
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_left,rgba(37,99,235,0.15)_0%,transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,rgba(216,158,92,0.12)_0%,transparent_60%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(99,102,241,0.05)_0%,transparent_50%)]" />
         </div>
 
         {/* Ambient Watermark Text Behind Content */}

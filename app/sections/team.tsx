@@ -7,29 +7,17 @@ import { AtSign, Code2, Send, Globe, ArrowUpRight } from "lucide-react";
 
 const team = [
   {
-    name: "R B Ravish",
-    role: "Lead Architect",
-    specialty: "Frontend & AI Systems",
-    social: { linkedin: "#", github: "#", twitter: "#" },
-  },
-  {
-    name: "Mathew Joseph",
-    role: "Operations Strategy",
-    specialty: "Event Infrastructure",
-    social: { linkedin: "#", globe: "#" },
-  },
-  {
-    name: "Afiya Fathima",
-    role: "Experience Designer",
-    specialty: "UI/UX & Brand Story",
+    name: "Prince",
+    role: "Director",
+    specialty: "Strategy & Operations",
     social: { linkedin: "#", twitter: "#" },
   },
   {
-    name: "T A Govindan S",
-    role: "Core Engineering",
-    specialty: "Full-Stack Systems",
+    name: "Gokul",
+    role: "Director",
+    specialty: "Engineering & Product",
     social: { linkedin: "#", github: "#" },
-  },
+  }
 ];
 
 export default function Team() {
@@ -74,7 +62,7 @@ export default function Team() {
         </div>
 
         {/* Team Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 md:gap-16 max-w-3xl mx-auto">
           {team.map((member, idx) => (
             <TeamMemberCard key={idx} member={member} index={idx} />
           ))}
