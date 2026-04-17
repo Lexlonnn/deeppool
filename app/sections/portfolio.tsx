@@ -2,8 +2,9 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ExternalLink, ArrowUpRight } from "lucide-react";
+import { useModal } from "../context/ModalContext";
 
 const projects = [
   {
@@ -21,6 +22,7 @@ const projects = [
     tags: ["SEO", "Meta Ads", "Data Analysis"],
     color: "#1877f2",
     num: "02",
+    isVideo: true,
   },
   {
     title: "Blinkr Wellness",
@@ -37,6 +39,7 @@ const projects = [
     tags: ["Brand Strategy", "Figma", "Copywriting"],
     color: "#f59e0b",
     num: "04",
+    isVideo: true,
   },
   {
     title: "FlowBoard",
@@ -48,101 +51,56 @@ const projects = [
   },
 ];
 
-function ProjectCard({ project, index }: { project: (typeof projects)[0], index: number }) {
+function ProjectCard({ project }: { project: any }) {
+  const { openDetailModal } = useModal();
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: false, margin: "-50px" }}
-      transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative w-full rounded-[2rem] overflow-hidden border border-slate-200 bg-white shadow-[0_10px_40px_rgba(0,0,0,0.03)] hover:shadow-[0_20px_50px_rgba(0,0,0,0.08)] transition-all duration-500 hover:-translate-y-2"
+    <div
+      onClick={() => openDetailModal({
+         title: project.title,
+         tagline: project.category,
+         desc: project.desc,
+         type: 'portfolio',
+         content: `Stack: ${project.tags.join(', ')}\n\nChallenge:\nThe client needed a resilient, high-conversion digital presence to outpace established market leaders.\n\nSolution:\nWe deployed a modern stack architecture and a completely redesigned user journey.\n\nResults:\nTransformed their digital workflow and drove significant multi-platform growth.`
+      })}
+      className="group cursor-pointer relative w-[280px] md:w-[380px] aspect-[4/3] rounded-[2rem] overflow-hidden shadow-lg border border-slate-200/50 bg-slate-50 flex-shrink-0"
     >
-      {/* Top Accent Line */}
-      <div
-        className="absolute top-0 left-0 right-0 h-1 z-10"
-        style={{ backgroundColor: project.color }}
+      <div 
+        className="absolute inset-0 transition-transform duration-[2s] group-hover:scale-110 ease-out bg-white"
       />
+      
+      {/* Fine noise texture overlay */}
+      <div className="absolute inset-0 opacity-[0.15] mix-blend-overlay pointer-events-none" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }} />
 
-      <div className="flex flex-col md:flex-row h-full">
-        {/* Preview Area */}
-        <div className="relative h-[250px] md:h-auto md:w-[45%] lg:w-[40%] overflow-hidden bg-slate-50 flex-shrink-0">
-          <div
-            className="absolute inset-0 opacity-10 group-hover:scale-110 group-hover:opacity-20 transition-all duration-700"
-            style={{
-              background: `radial-gradient(circle at 50% 50%, ${project.color}, transparent 70%)`
-            }}
-          />
-
-          {/* Project Number Watermark */}
-          <div
-            className="absolute bottom-[-10px] left-4 text-[100px] font-black leading-none select-none pointer-events-none transition-all duration-500 group-hover:-translate-y-4"
-            style={{ color: `${project.color}15` }}
-          >
-            {project.num}
-          </div>
-
-          {/* Tag Chips in Preview */}
-          <div className="absolute inset-0 flex items-center justify-center gap-2 flex-wrap px-6">
-            {project.tags.map((tag, i) => (
-              <span
-                key={tag}
-                className="px-3 py-1 rounded-full text-[10px] sm:text-[11px] font-bold border bg-white/90 shadow-sm transition-transform duration-500"
-                style={{
-                  color: project.color,
-                  borderColor: `${project.color}30`,
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Content Area */}
-        <div className="p-8 md:p-10 flex flex-col justify-center flex-grow bg-white">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-[10px] font-black tracking-[0.2em] text-blue-600 uppercase">
-              {project.category}
-            </span>
-            <ArrowUpRight className="text-slate-300 group-hover:text-slate-900 transition-colors group-hover:translate-x-1 group-hover:-translate-y-1" size={20} />
-          </div>
-
-          <h3 className="text-2xl md:text-3xl font-black text-slate-900 mb-4 leading-tight">
-            {project.title}
-          </h3>
-
-          <p className="text-slate-500 text-sm md:text-base leading-relaxed mb-6">
-            {project.desc}
-          </p>
-
-          <div className="flex items-center justify-between pt-6 border-t border-slate-100 mt-auto">
-            <div className="flex gap-2">
-              {project.tags.slice(0, 2).map(tag => (
-                <span key={tag} className="text-[10px] font-bold text-slate-400">#{tag.toUpperCase()}</span>
-              ))}
+      {/* Video Indicator */}
+      {project.isVideo && (
+         <div className="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+            <div className="w-16 h-16 md:w-20 md:h-20 rounded-full bg-slate-900/5 backdrop-blur-md flex items-center justify-center border border-slate-900/10 text-slate-800 shadow-xl opacity-80 group-hover:scale-110 group-hover:opacity-100 group-hover:bg-slate-900 group-hover:text-white transition-all duration-500">
+              <svg className="w-6 h-6 md:w-8 md:h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
             </div>
-            <button className="text-xs font-black tracking-widest text-slate-900 group-hover:text-blue-600 transition-colors flex items-center gap-2">
-              VIEW CASE
-            </button>
-          </div>
-        </div>
-      </div>
-    </motion.div>
+         </div>
+      )}
+
+      {/* Overlay that cleans the edge */}
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-200/50 via-transparent to-transparent opacity-70 group-hover:opacity-30 transition-opacity duration-500 z-10" />
+    </div>
   );
 }
 
 export default function Portfolio() {
-  return (
-    <section id="portfolio" className="relative py-24 md:py-32 bg-white">
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
+  // We duplicate the array to create a seamless infinite loop.
+  // Using 4x to ensure there is no white space even on ultrawide monitors.
+  const marqueeProjects = [...projects, ...projects, ...projects, ...projects];
 
+  return (
+    <section id="portfolio" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
+      <div className="max-w-6xl mx-auto px-6 relative z-10 mb-12 md:mb-16">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-16 md:mb-24"
+           initial={{ opacity: 0, y: 30 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: true, margin: "-100px" }}
+           transition={{ duration: 0.6 }}
+           className="text-center"
         >
           <div className="flex items-center justify-center gap-3 mb-6">
             <div className="h-[2px] w-8 bg-blue-600" />
@@ -156,18 +114,26 @@ export default function Portfolio() {
             Selected Works
           </h2>
         </motion.div>
+      </div>
 
-        {/* Vertical List of Projects */}
-        <div className="flex flex-col gap-8 md:gap-12">
-          {projects.map((project, i) => (
+      {/* Infinite Horizontal Gallery Container */}
+      <div className="relative flex w-full h-[300px] md:h-[400px]">
+        <motion.div
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            repeat: Infinity,
+            ease: "linear",
+            duration: 40, // 40s total duration means a slow, elegant glide
+          }}
+          className="flex gap-6 md:gap-8 w-max pr-6 md:pr-8"
+        >
+          {marqueeProjects.map((project, i) => (
             <ProjectCard
-              key={i}
+              key={`${project.title}-${i}`}
               project={project}
-              index={i}
             />
           ))}
-        </div>
-
+        </motion.div>
       </div>
     </section>
   );

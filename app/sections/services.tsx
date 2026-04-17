@@ -4,6 +4,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Lightbulb, Globe, Paintbrush, Video, ArrowUpRight } from "lucide-react";
+import { useModal } from "../context/ModalContext";
 
 const services = [
   {
@@ -34,7 +35,7 @@ const services = [
 
 export default function Services() {
   return (
-    <section id="services" className="relative py-24 md:py-32 bg-[#fcfcfc] overflow-hidden">
+    <section id="services" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
       {/* Texture Layer */}
       <div className="absolute inset-0 pointer-events-none opacity-40 mix-blend-multiply"
         style={{ backgroundImage: `url('/paper-texture.jpg')`, backgroundSize: '500px' }} />
@@ -74,14 +75,22 @@ export default function Services() {
 }
 
 function ServiceCard({ service, index }: { service: any, index: number }) {
+  const { openDetailModal } = useModal();
   return (
     <motion.div
+      onClick={() => openDetailModal({
+        title: service.title,
+        tagline: service.tagline,
+        desc: service.desc,
+        type: 'service',
+        icon: service.icon
+      })}
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: false, margin: "-50px" }}
       transition={{ duration: 0.6, delay: index * 0.1 }}
-      className="group relative p-8 rounded-[2.5rem] bg-white/60 backdrop-blur-md border border-slate-200/50 
-                 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] hover:bg-white/90 hover:-translate-y-2 flex flex-col h-full"
+      className="cursor-pointer group relative p-8 rounded-[2.5rem] bg-white/60 backdrop-blur-md border border-slate-200/50 
+                 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] transition-all duration-500 hover:shadow-[0_40px_80px_-20px_rgba(0,0,0,0.1)] hover:border-blue-200 hover:bg-white/90 hover:-translate-y-2 flex flex-col h-full"
     >
       {/* Floating Icon Container */}
       <div className="mb-8 relative">

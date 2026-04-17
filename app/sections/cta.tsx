@@ -3,8 +3,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Send } from "lucide-react";
+import { useModal } from "../context/ModalContext";
 
 export default function CTA() {
+  const { openContactModal } = useModal();
   return (
     <section id="contact" className="relative py-12 md:py-24 px-4 md:px-8 w-full max-w-[1500px] mx-auto min-h-[80vh] flex items-center justify-center">
       
@@ -96,7 +98,7 @@ export default function CTA() {
             className="flex flex-col sm:flex-row items-center gap-5 sm:gap-8 w-full sm:w-auto"
           >
             {/* Primary Magnetic Button Style */}
-            <button className="group relative w-full sm:w-auto overflow-hidden rounded-[2rem] bg-blue-600 p-[2px] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] active:scale-95">
+            <button onClick={openContactModal} className="group relative w-full sm:w-auto overflow-hidden rounded-[2rem] bg-blue-600 p-[2px] transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_50px_rgba(37,99,235,0.4)] active:scale-95">
               <span className="absolute inset-0 bg-gradient-to-r from-blue-400 via-indigo-500 to-amber-400 opacity-60 group-hover:opacity-100 transition-opacity duration-300" />
               <div className="relative flex items-center justify-center gap-3 bg-slate-950 px-10 py-5 md:px-12 md:py-6 rounded-[calc(2rem-2px)] group-hover:bg-opacity-0 transition-all duration-300">
                 <span className="font-black text-white tracking-[0.15em] uppercase text-xs md:text-sm group-hover:text-white">
@@ -107,7 +109,7 @@ export default function CTA() {
             </button>
             
             {/* Secondary Text Link with Underline Hover */}
-            <button className="group relative w-full sm:w-auto px-6 py-4 flex items-center justify-center gap-3 transition-all duration-300">
+            <button onClick={openContactModal} className="group relative w-full sm:w-auto px-6 py-4 flex items-center justify-center gap-3 transition-all duration-300">
               <span className="font-bold text-slate-300 group-hover:text-white tracking-widest uppercase text-xs md:text-sm transition-colors">
                 Contact Sales
               </span>

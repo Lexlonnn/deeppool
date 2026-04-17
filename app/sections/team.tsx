@@ -22,11 +22,10 @@ const team = [
 
 export default function Team() {
   return (
-    <section id="team" className="relative py-24 md:py-32 bg-slate-50/70 backdrop-blur-sm overflow-hidden">
+    <section id="team" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
       {/* Background Texture Consistency */}
       <div
         className="absolute inset-0 opacity-20 pointer-events-none mix-blend-multiply"
-        style={{ backgroundImage: `url('/paper-texture.jpg')`, backgroundSize: '400px' }}
       />
 
       <div className="max-w-7xl mx-auto px-6 relative z-10">

@@ -3,8 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Droplets, Menu, X } from 'lucide-react';
+import { useModal } from '../context/ModalContext';
 
 export default function Navbar() {
+  const { openContactModal } = useModal();
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -99,9 +101,9 @@ export default function Navbar() {
 
         {/* CTA BUTTON */}
         <div className="flex items-center gap-4">
-          <Link href="#contact" onClick={(e) => handleScrollTo(e, 'contact')} className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-black tracking-widest rounded-full hover:bg-blue-700 hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95">
+          <button onClick={openContactModal} className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-black tracking-widest rounded-full hover:bg-blue-700 hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95">
             FREE CONSULT
-          </Link>
+          </button>
 
           {/* Mobile Toggle */}
           <button 
@@ -126,13 +128,15 @@ export default function Navbar() {
               {item.name}
             </Link>
           ))}
-          <Link 
-            href="#contact" 
-            onClick={(e) => handleScrollTo(e, 'contact')} 
-            className="text-sm font-bold tracking-widest text-blue-600"
+          <button 
+            onClick={() => {
+              setIsOpen(false);
+              openContactModal();
+            }} 
+            className="text-left text-sm font-bold tracking-widest text-blue-600 uppercase"
           >
             CONTACT US
-          </Link>
+          </button>
         </div>
       </div>
     </nav>

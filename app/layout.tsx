@@ -4,6 +4,9 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 import SmoothScroll from "./components/SmoothScroll";
 import Footer from "./components/Footer";
+import { ModalProvider } from "./context/ModalContext";
+import ContactModal from "./components/modals/ContactModal";
+import DetailModal from "./components/modals/DetailModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,11 +34,15 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col overflow-x-hidden">
-        <SmoothScroll>
-          <Navbar />
-          {children}
-          <Footer />
-        </SmoothScroll>
+        <ModalProvider>
+          <SmoothScroll>
+            <Navbar />
+            {children}
+            <Footer />
+            <ContactModal />
+            <DetailModal />
+          </SmoothScroll>
+        </ModalProvider>
       </body>
     </html>
   );

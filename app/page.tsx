@@ -4,11 +4,13 @@ import React, { useEffect, useState } from "react";
 import Particles, { initParticlesEngine } from "@tsparticles/react";
 import { loadSlim } from "@tsparticles/slim";
 import Hero from "./sections/hero";
-import Services from "./sections/services";
-import Portfolio from "./sections/portfolio";
-import Process from "./sections/proof";
-import Team from "./sections/team";
-import CTA from "./sections/cta";
+import dynamic from 'next/dynamic';
+
+const Services = dynamic(() => import('./sections/services'));
+const Portfolio = dynamic(() => import('./sections/portfolio'));
+const Process = dynamic(() => import('./sections/proof'));
+const Team = dynamic(() => import('./sections/team'));
+const CTA = dynamic(() => import('./sections/cta'));
 
 export default function Home() {
   const [init, setInit] = useState(false);
@@ -31,7 +33,7 @@ export default function Home() {
         resize: { enable: true } 
       },
       modes: { 
-        grab: { distance: 250, links: { opacity: 0.15 } },
+        grab: { distance: 250, links: { opacity: 0.5 } },
         bubble: { distance: 250, size: 3.5, duration: 2, opacity: 0.8 },
         push: { quantity: 2 }
       },
@@ -42,19 +44,19 @@ export default function Home() {
         color: "#94a3b8", 
         distance: 150, 
         enable: true, 
-        opacity: 0.1, 
+        opacity: 0.15, 
         width: 1 
       },
       move: { 
         enable: true, 
-        speed: 0.3, 
-        direction: "none" as const, 
+        speed: 0.5, 
+        direction: "top" as const, 
         outModes: { default: "out" as const } 
       },
-      number: { density: { enable: true, area: 1000 }, value: 80 },
-      opacity: { value: 0.3 },
+      number: { density: { enable: true, area: 1000 }, value: 100 },
+      opacity: { value: 0.35 },
       shape: { type: "circle" },
-      size: { value: { min: 1, max: 2.5 } },
+      size: { value: { min: 1.5, max: 3 } },
     },
     detectRetina: true,
   };

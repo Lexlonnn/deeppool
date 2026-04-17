@@ -31,7 +31,7 @@ const processSteps = [
 
 export default function Process() {
   return (
-    <section id="method" className="relative py-24 md:py-32 bg-white overflow-hidden">
+    <section id="method" className="relative py-24 md:py-32 bg-transparent overflow-hidden">
       <div
         className="absolute inset-0 opacity-30 pointer-events-none mix-blend-multiply"
         style={{ backgroundImage: `url('/paper-texture.jpg')`, backgroundSize: "400px" }}
