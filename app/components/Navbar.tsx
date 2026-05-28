@@ -1,144 +1,111 @@
 // components/Navbar.tsx
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Link from 'next/link';
-import { Droplets, Menu, X } from 'lucide-react';
+import Image from 'next/image';
+import { Menu, X } from 'lucide-react';
 import { useModal } from '../context/ModalContext';
 
 export default function Navbar() {
   const { openContactModal } = useModal();
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      // 1. Logic for glassy background threshold
-      setScrolled(currentScrollY > 20);
-
-      // 2. Logic for Reveal on Scroll Up
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        // Scrolling Down - Hide Navbar
-        setIsVisible(false);
-        setIsOpen(false); // Close mobile menu if user scrolls away
-      } else {
-        // Scrolling Up - Show Navbar
-        setIsVisible(true);
-      }
-      
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY]);
 
   const navItems = [
     { name: 'HOME', id: 'home' },
     { name: 'SERVICES', id: 'services' },
     { name: 'PORTFOLIO', id: 'portfolio' },
-    { name: 'PROCESS', id: 'method' },
-    { name: 'TEAM', id: 'team' }
+    { name: 'TEAM', id: 'team' },
   ];
 
   const handleScrollTo = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
     e.preventDefault();
-    const target = document.getElementById(id);
-    if (target) {
-      const offset = 80; // Offset for navbar height
-      const bodyRect = document.body.getBoundingClientRect().top;
-      const elementRect = target.getBoundingClientRect().top;
-      const elementPosition = elementRect - bodyRect;
-      const offsetPosition = elementPosition - offset;
+    const element = document.getElementById(id);
+    if (element) {
+      const navHeight = 80;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: "smooth"
       });
     }
-    setIsOpen(false); // Close mobile menu if open
+    setIsOpen(false);
   };
 
   return (
-    <nav 
-      className={`fixed top-0 w-full z-[100] transition-all duration-500 ease-in-out ${
-        isVisible ? "translate-y-0" : "-translate-y-full"
-      } ${
-        scrolled 
-          ? "py-3 bg-white/40 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)] backdrop-blur-md border-b border-white/20" 
-          : "py-6 bg-transparent"
-      }`}
-    >
-      <div className="max-w-[1400px] mx-auto px-8 flex items-center justify-between">
+    <>
+      <div className="fixed top-6 left-0 right-0 z-50 flex justify-center px-4 md:px-8 pointer-events-none">
+      <header className="w-full max-w-6xl bg-white rounded-2xl shadow-sm border border-black/5 py-4 px-6 md:px-8 flex items-center justify-between font-sans pointer-events-auto">
         
         {/* LOGO */}
-        <Link href="/" onClick={(e) => handleScrollTo(e, 'home')} className="flex items-center gap-2 group transition-transform hover:scale-105 active:scale-95">
-          <div className="bg-blue-600 p-1.5 rounded-xl shadow-lg group-hover:rotate-[15deg] transition-transform duration-300">
-            <Droplets className="text-white w-6 h-6" />
+        <Link href="/" onClick={(e) => handleScrollTo(e, 'home')} className="flex items-center group">
+          <div className="relative font-[family-name:var(--font-orbitron)] font-black text-xl tracking-widest text-black">
+             DEEPPOOL
           </div>
-          <span className="text-2xl font-black tracking-tight text-slate-900">
-            DeepPool
-          </span>
         </Link>
 
-        {/* DESKTOP NAV */}
-        <div className="hidden md:flex items-center gap-10">
+        {/* DESKTOP LINKS */}
+        <nav className="hidden md:flex items-center gap-8">
           {navItems.map((item) => (
-            <Link 
-              key={item.name} 
-              href={`#${item.id}`} 
+            <Link
+              key={item.name}
+              href={`#${item.id}`}
               onClick={(e) => handleScrollTo(e, item.id)}
-              className="relative text-[11px] font-black tracking-[0.2em] text-slate-600 hover:text-blue-600 transition-colors group"
+              className="text-xs font-semibold tracking-wide capitalize text-black/80 hover:text-black transition-colors"
             >
               {item.name}
-              <span className="absolute -bottom-1 left-1/2 w-0 h-0.5 bg-blue-600 transition-all duration-300 group-hover:w-full group-hover:left-0" />
             </Link>
           ))}
-        </div>
+        </nav>
 
-        {/* CTA BUTTON */}
+        {/* CTA & MOBILE MENU */}
         <div className="flex items-center gap-4">
-          <button onClick={openContactModal} className="hidden sm:inline-block px-6 py-2.5 bg-blue-600 text-white text-xs font-black tracking-widest rounded-full hover:bg-blue-700 hover:shadow-[0_10px_20px_rgba(37,99,235,0.3)] transition-all duration-300 active:scale-95">
-            FREE CONSULT
+          <button 
+            onClick={openContactModal} 
+            className="hidden sm:inline-block bg-[#ff5a1f] text-white px-6 py-2.5 text-xs font-bold tracking-wide rounded-lg hover:bg-black transition-colors"
+          >
+            Coming Soon
           </button>
 
-          {/* Mobile Toggle */}
-          <button 
-            onClick={() => setIsOpen(!isOpen)} 
-            className="md:hidden p-2 rounded-lg bg-slate-100 text-slate-800"
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="md:hidden p-2 text-black"
           >
-            {isOpen ? <X size={20} /> : <Menu size={20} />}
+            {isOpen ? <X size={24} /> : <Menu size={24} />}
           </button>
         </div>
-      </div>
+      </header>
+    </div>
 
-      {/* MOBILE MENU (Glassy) */}
-      <div className={`md:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-xl border-b border-slate-200 transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <div className="flex flex-col p-8 gap-6">
+      {/* MOBILE MENU DROPDOWN */}
+      <div 
+        className={`fixed inset-0 z-40 bg-[#e5e5e5] pt-32 px-6 transition-transform duration-300 ease-in-out md:hidden flex flex-col ${
+          isOpen ? 'translate-y-0' : '-translate-y-full'
+        }`}
+      >
+        <div className="flex flex-col gap-6 h-full pb-10">
           {navItems.map((item) => (
-            <Link 
-              key={item.name} 
-              href={`#${item.id}`} 
-              onClick={(e) => handleScrollTo(e, item.id)} 
-              className="text-sm font-bold tracking-widest text-slate-800"
+            <Link
+              key={item.name}
+              href={`#${item.id}`}
+              onClick={(e) => handleScrollTo(e, item.id)}
+              className="text-3xl font-black tracking-widest text-black hover:text-[#ff5a1f]"
             >
               {item.name}
             </Link>
           ))}
           <button 
             onClick={() => {
-              setIsOpen(false);
               openContactModal();
+              setIsOpen(false);
             }} 
-            className="text-left text-sm font-bold tracking-widest text-blue-600 uppercase"
+            className="bg-[#ff5a1f] text-white w-full py-5 text-sm font-black tracking-widest uppercase mt-8 hover:bg-black transition-colors rounded-xl"
           >
-            CONTACT US
+            Coming Soon
           </button>
         </div>
       </div>
-    </nav>
+    </>
   );
 }
