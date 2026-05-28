@@ -17,22 +17,38 @@ export default function CTAFAQ() {
   return (
     <section id="faq" className="relative w-full py-24 px-6 md:px-12 flex flex-col items-center">
       
-      {/* 3 Square Gallery Grid */}
-      <div className="w-full max-w-6xl grid grid-cols-1 sm:grid-cols-3 gap-4 mb-32">
-         {[
-           "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop",
-           "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop",
-           "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2564&auto=format&fit=crop"
-         ].map((img, i) => (
-           <div key={i} className="aspect-square bg-white border border-black/10 overflow-hidden relative group">
-              <Image 
-                src={img} 
-                alt="Gallery Image" 
-                fill 
-                className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
-              />
-           </div>
-         ))}
+      {/* Infinite Moving Cards Carousel */}
+      <div className="w-full max-w-[100vw] overflow-hidden relative mb-32 group">
+        
+        {/* Left Gradient Fade */}
+        <div className="absolute left-0 top-0 w-24 md:w-48 h-full bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+        
+        {/* Right Gradient Fade */}
+        <div className="absolute right-0 top-0 w-24 md:w-48 h-full bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
+
+        {/* Marquee Track */}
+        <div className="flex w-max animate-[marquee_30s_linear_infinite]">
+           {/* Duplicate the array twice for seamless loop */}
+           {[...Array(2)].map((_, arrayIndex) => (
+             <div key={arrayIndex} className="flex gap-4 px-2">
+               {[
+                 "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop",
+               ].map((img, i) => (
+                 <div key={i} className="w-[280px] md:w-[400px] aspect-square bg-white border border-black/10 overflow-hidden relative shrink-0 rounded-2xl">
+                    <Image 
+                      src={img} 
+                      alt="Gallery Image" 
+                      fill 
+                      className="object-cover transition-all duration-700"
+                    />
+                 </div>
+               ))}
+             </div>
+           ))}
+        </div>
       </div>
 
       {/* FAQ Header */}
