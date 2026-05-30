@@ -11,7 +11,34 @@ export default function Hero() {
     <section id="home" className="relative w-full h-screen flex flex-col justify-between overflow-hidden pt-32">
 
       {/* Top Tagline */}
-      <div className="w-full text-center mt-4 mb-4 z-20">
+      <div className="w-full text-center mt-4 mb-4 z-20 flex flex-col items-center gap-2">
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={{
+            hidden: { opacity: 0 },
+            visible: {
+              opacity: 1,
+              transition: {
+                staggerChildren: 0.05,
+                delayChildren: 0.2,
+              },
+            },
+          }}
+          className="flex font-mono text-sm md:text-base tracking-widest text-black/80 uppercase font-bold"
+        >
+          {"Welcome to Deep Pool".split("").map((char, index) => (
+            <motion.span
+              key={index}
+              variants={{
+                hidden: { opacity: 0, y: 15 },
+                visible: { opacity: 1, y: 0, transition: { type: "spring", damping: 12, stiffness: 100 } }
+              }}
+            >
+              {char === " " ? "\u00A0" : char}
+            </motion.span>
+          ))}
+        </motion.div>
         <span className="font-mono text-[10px] md:text-xs tracking-widest text-black/40 uppercase font-semibold">
           THE ULTIMATE PRODUCT & MARKETING NEXUS
         </span>

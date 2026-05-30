@@ -32,10 +32,10 @@ export default function CTAFAQ() {
            {[...Array(2)].map((_, arrayIndex) => (
              <div key={arrayIndex} className="flex gap-4 px-2">
                {[
-                 "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=600&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop",
-                 "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?q=80&w=600&auto=format&fit=crop",
+                 "https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=600&auto=format&fit=crop", // Analytics/laptop
+                 "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?q=80&w=600&auto=format&fit=crop", // Strategy/meeting
+                 "https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=600&auto=format&fit=crop", // Data dashboards
+                 "https://images.unsplash.com/photo-1552581234-26160f608093?q=80&w=600&auto=format&fit=crop", // Creative marketing team
                ].map((img, i) => (
                  <div key={i} className="w-[280px] md:w-[400px] aspect-square bg-white border border-black/10 overflow-hidden relative shrink-0 rounded-2xl">
                     <Image 
@@ -81,6 +81,54 @@ export default function CTAFAQ() {
              </div>
            );
          })}
+      </div>
+
+      {/* Light & Airy CTA Block (Oppo Enco Style) */}
+      <div className="w-full max-w-6xl mt-32 relative overflow-hidden rounded-[2.5rem] bg-gradient-to-b from-[#fdfdfd] to-[#eff2f7] shadow-xl border border-white group hover:shadow-[0_40px_80px_-20px_rgba(154,158,201,0.4)] hover:-translate-y-2 transition-all duration-700 ease-out cursor-pointer">
+        
+        {/* Soft Abstract Background Elements - Now with continuous ambient animation */}
+        <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-white rounded-full blur-[100px] opacity-80 pointer-events-none -translate-y-1/3 animate-[pulse_6s_ease-in-out_infinite] group-hover:translate-x-12 group-hover:translate-y-12 group-hover:scale-110 transition-transform duration-1000 ease-out" />
+        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-[#dbe0f2] rounded-full blur-[120px] opacity-60 pointer-events-none -translate-x-1/4 translate-y-1/4 animate-[pulse_8s_ease-in-out_infinite_reverse] group-hover:-translate-x-12 group-hover:-translate-y-12 group-hover:scale-110 transition-transform duration-1000 ease-out" />
+
+        {/* Small floating particles */}
+        <div className="absolute top-1/4 left-1/2 w-4 h-4 rounded-full bg-[#9a9ec9]/30 blur-sm animate-[bounce_4s_infinite]" />
+        <div className="absolute bottom-1/3 right-1/3 w-6 h-6 rounded-full bg-white/60 blur-md animate-[pulse_3s_infinite]" />
+
+        {/* Inner Container */}
+        <div className="relative w-full h-full p-12 md:p-24 flex flex-col md:flex-row items-center justify-between gap-12 z-10">
+          
+          {/* Left Content */}
+          <div className="flex flex-col items-center md:items-start text-center md:text-left w-full md:w-2/3">
+            <h3 className="text-5xl md:text-6xl lg:text-[5.5rem] font-semibold tracking-tighter mb-6 text-[#9a9ec9] leading-[1.1] group-hover:text-[#888cba] transition-colors duration-700 relative">
+              <span className="relative z-10">BUILD</span> <br/>
+              <span className="relative z-10">YOUR VISION</span>
+            </h3>
+            
+            <p className="max-w-lg text-[#8587a8] text-sm md:text-lg font-medium leading-relaxed group-hover:text-[#717394] transition-colors duration-700">
+              A perfect plan for your digital ecosystem. Partner with us to engineer beautifully scalable solutions.
+            </p>
+          </div>
+
+          {/* Right Button */}
+          <div className="flex shrink-0 md:mt-0 mt-8 relative">
+            {/* Continuous Pulsing Glow Behind Button */}
+            <div className="absolute inset-0 bg-[#787ca5] blur-xl opacity-30 animate-[pulse_3s_ease-in-out_infinite] rounded-full" />
+            
+            <button className="relative bg-[#787ca5] text-white px-8 py-3.5 rounded-full flex items-center gap-3 font-medium tracking-wide text-sm transition-all duration-500 shadow-[0_8px_20px_-6px_rgba(120,124,165,0.5)] group-hover:shadow-none overflow-hidden group/btn">
+              
+              {/* Button Hover Background Fill */}
+              <div className="absolute inset-0 bg-[#636792] translate-y-[100%] group-hover/btn:translate-y-0 transition-transform duration-500 ease-out" />
+              
+              <span className="relative z-10">Shop Solutions</span>
+              
+              <div className="relative z-10 w-6 h-6 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:bg-white group-hover/btn:text-[#636792] transition-colors duration-500">
+                 <svg className="w-3.5 h-3.5 group-hover/btn:translate-x-0.5 transition-transform duration-300 animate-[bounce_2s_infinite] [animation-direction:alternate] group-hover/btn:animate-none" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                 </svg>
+              </div>
+            </button>
+          </div>
+        </div>
       </div>
 
     </section>
